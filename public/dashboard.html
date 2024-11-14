@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+</head>
+<body>
+    <div class="container">
+        <h1>Transactions Dashboard</h1>
+
+        <label for="monthSelect">Select Month:</label>
+        <select id="monthSelect">
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3" selected>March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+  
+        <input type="text" id="searchBox" placeholder="Search transactions...">
+
+        <table id="transactionsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Date of Sale</th>
+                    <th>Sold</th>
+                </tr>
+            </thead>
+            <tbody></tbody> 
+        </table>
+
+        <div class="statistics">
+            <h2>Transactions Statistics</h2>
+            <div>Total Sales Amount: $<span id="totalSales"></span></div>
+            <div>Sold Items: <span id="soldItems"></span></div>
+            <div>Unsold Items: <span id="unsoldItems"></span></div>
+        </div>
+
+        <div class="chart">
+            <h2>Transactions Bar Chart</h2>
+            <canvas id="barChart"></canvas> 
+        </div>
+
+        <div class="pie-chart">
+            <h2>Transactions Pie Chart</h2>
+            <canvas id="pieChart"></canvas> 
+        </div>
+
+        <div class="combined-statistics">
+            <h2>Combined Statistics</h2>
+            Total Sales Amount: $<span id="combinedTotalSales"></span><br />
+            Sold Items: <span id="combinedSoldItems"></span><br />
+            Unsold Items: <span id="combinedUnsoldItems"></span><br />
+        </div>
+
+    </div>
+
+    <!-- Link to your dashboard.js file -->
+    <script src="dashboard.js"></script> 
+</body>
+</html>
