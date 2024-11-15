@@ -6,11 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const API_URL = process.env.API_URL;
 
-/**
- * 1. Transactions Endpoint
- * GET /api/transactions
- * Query Params: page, perPage, search, month
- */
+
 router.get('/transactions', async (req, res) => {
     let { page = 1, perPage = 10, search = '', month } = req.query;
     page = parseInt(page);
@@ -21,7 +17,6 @@ router.get('/transactions', async (req, res) => {
         const response = await axios.get(API_URL);
         const transactions = response.data;
 
-        // Filter transactions based on search term and month
         let filteredTransactions = transactions.filter(transaction =>
             transaction.title?.toLowerCase().includes(search) ||
             transaction.description?.toLowerCase().includes(search) ||
@@ -45,11 +40,6 @@ router.get('/transactions', async (req, res) => {
     }
 });
 
-/**
- * 2. Statistics Endpoint
- * GET /api/statistics
- * Query Params: month
- */
 router.get('/statistics', async (req, res) => {
     const { month } = req.query;
 
@@ -57,7 +47,6 @@ router.get('/statistics', async (req, res) => {
         const response = await axios.get(API_URL);
         const transactions = response.data;
 
-        // Filter transactions based on the specified month
         const filteredTransactions = transactions.filter(transaction => {
             const transactionMonth = new Date(transaction.dateOfSale).getMonth() + 1;
             return transactionMonth === parseInt(month);
@@ -74,11 +63,6 @@ router.get('/statistics', async (req, res) => {
     }
 });
 
-/**
- * 3. Bar Chart Data Endpoint
- * GET /api/barchart
- * Query Params: month
- */
 router.get('/barchart', async (req, res) => {
     const { month } = req.query;
 
@@ -91,7 +75,6 @@ router.get('/barchart', async (req, res) => {
             return transactionMonth === parseInt(month);
         });
 
-        // Calculate price ranges
         const priceRanges = { "0-100": 0, "101-200": 0, "201-300": 0, "301-400": 0, "401-500": 0, "501+": 0 };
 
         filteredTransactions.forEach(transaction => {
@@ -110,11 +93,6 @@ router.get('/barchart', async (req, res) => {
     }
 });
 
-/**
- * 4. Pie Chart Data Endpoint
- * GET /api/piechart
- * Query Params: month
- */
 router.get('/piechart', async (req, res) => {
     const { month } = req.query;
 
@@ -137,11 +115,6 @@ router.get('/piechart', async (req, res) => {
     }
 });
 
-/**
- * 5. Combined Statistics Endpoint
- * GET /api/combined
- * Query Params: month
- */
 router.get('/combined', async (req, res) => {
     const { month } = req.query;
 
@@ -158,7 +131,6 @@ router.get('/combined', async (req, res) => {
             return transactionMonth === parseInt(month);
         });
 
-        // Gather combined statistics
         const totalSaleAmount = filteredTransactions.reduce((sum, t) => sum + t.price, 0);
         const totalSoldItems = filteredTransactions.filter(t => t.sold).length;
         const totalNotSoldItems = filteredTransactions.filter(t => !t.sold).length;
